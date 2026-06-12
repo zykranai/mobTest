@@ -1,0 +1,46 @@
+package com.demo.tools;
+
+import com.demo.driver.DriverFactory;
+import com.demo.driver.Platform;
+import io.appium.java_client.AppiumDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * ASSERT — verify text/element visible and capture screenshot evidence.
+ */
+public class AssertTool implements Tool {
+
+    @Override public String name() { return "assert_visible"; }
+
+    @Override public String description() {
+        return "Assert expected text is visible. args: expected=<text>. Returns pass/fail + screenshot.";
+    }
+
+    @Override
+    public ToolResult execute(Map<String, Object> args) {
+        AppiumDriver driver = DriverFactory.get();
+        String expected = args.getOrDefault("expected", "").toString();
+        try {
+            By by = DriverFactory.platform() == Platform.ANDROID
+                    ? By.xpath("//*[contains(@text," + LocatorHelper.xp(expected) + ") "
+                             + "or contains(@content-desc," + LocatorHelper.xp(expected) + ")]")
+                    : By.xpath("//*[contains(@label," + LocatorHelper.xp(expected) + ") "
+                             + "or contains(@name," + LocatorHelper.xp(expected) + ") "
+                             + "or contains(@value," + LocatorHelper.xp(expected) + ")]");
+
+            List<WebElement> matches = driver.findElements(by);
+            boolean found = matches.stream().anyMatch(WebElement::isDisplayed);
+            driver.getScreenshotAs(OutputType.BASE64);
+            String tag = found ? "[PASS]" : "[FAIL]";
+            String obs = tag + " expected '" + expected + "' " + (found ? "is" : "is NOT") + " visible.";
+            return found ? ToolResult.ok(obs) : ToolResult.fail(obs);
+        } catch (Exception e) {
+            return ToolResult.fail("Assertion error: " + e.getMessage());
+        }
+    }
+}

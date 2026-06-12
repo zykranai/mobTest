@@ -1,0 +1,298 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A100000100000001 /* ShopMateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000100000001 /* ShopMateApp.swift */; };
+		A100000200000001 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000200000001 /* Product.swift */; };
+		A100000300000001 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000300000001 /* AppState.swift */; };
+		A100000400000001 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000400000001 /* RootView.swift */; };
+		A100000500000001 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000500000001 /* WelcomeView.swift */; };
+		A100000600000001 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000600000001 /* LoginView.swift */; };
+		A100000700000001 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000700000001 /* HomeView.swift */; };
+		A100000800000001 /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000800000001 /* ProductListView.swift */; };
+		A100000900000001 /* CartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000900000001 /* CartView.swift */; };
+		A100000A00000001 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000A00000001 /* SuccessView.swift */; };
+		A100000B00000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A200000B00000001 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A200000100000001 /* ShopMateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopMateApp.swift; sourceTree = "<group>"; };
+		A200000200000001 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		A200000300000001 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		A200000400000001 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		A200000500000001 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		A200000600000001 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A200000700000001 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A200000800000001 /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
+		A200000900000001 /* CartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartView.swift; sourceTree = "<group>"; };
+		A200000A00000001 /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
+		A200000B00000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A200000C00000001 /* ShopMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A300000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A400000100000001 = {
+			isa = PBXGroup;
+			children = (
+				A400000200000001 /* ShopMate */,
+				A400000300000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A400000200000001 /* ShopMate */ = {
+			isa = PBXGroup;
+			children = (
+				A200000100000001 /* ShopMateApp.swift */,
+				A400000400000001 /* Models */,
+				A400000500000001 /* ViewModels */,
+				A400000600000001 /* Views */,
+				A200000B00000001 /* Assets.xcassets */,
+			);
+			path = ShopMate;
+			sourceTree = "<group>";
+		};
+		A400000300000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A200000C00000001 /* ShopMate.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A400000400000001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A200000200000001 /* Product.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A400000500000001 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A200000300000001 /* AppState.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A400000600000001 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A200000400000001 /* RootView.swift */,
+				A200000500000001 /* WelcomeView.swift */,
+				A200000600000001 /* LoginView.swift */,
+				A200000700000001 /* HomeView.swift */,
+				A200000800000001 /* ProductListView.swift */,
+				A200000900000001 /* CartView.swift */,
+				A200000A00000001 /* SuccessView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A500000100000001 /* ShopMate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A700000300000001 /* Build configuration list for PBXNativeTarget "ShopMate" */;
+			buildPhases = (
+				A500000200000001 /* Sources */,
+				A300000100000001 /* Frameworks */,
+				A500000300000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShopMate;
+			productName = ShopMate;
+			productReference = A200000C00000001 /* ShopMate.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A600000100000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = A700000100000001 /* Build configuration list for PBXProject "ShopMate" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A400000100000001;
+			productRefGroup = A400000300000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A500000100000001 /* ShopMate */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A500000300000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A100000B00000001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A500000200000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A100000100000001 /* ShopMateApp.swift in Sources */,
+				A100000200000001 /* Product.swift in Sources */,
+				A100000300000001 /* AppState.swift in Sources */,
+				A100000400000001 /* RootView.swift in Sources */,
+				A100000500000001 /* WelcomeView.swift in Sources */,
+				A100000600000001 /* LoginView.swift in Sources */,
+				A100000700000001 /* HomeView.swift in Sources */,
+				A100000800000001 /* ProductListView.swift in Sources */,
+				A100000900000001 /* CartView.swift in Sources */,
+				A100000A00000001 /* SuccessView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A800000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A800000200000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A800000300000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobtest.shopmate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A800000400000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobtest.shopmate;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A700000100000001 /* Build configuration list for PBXProject "ShopMate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A800000100000001 /* Debug */,
+				A800000200000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A700000300000001 /* Build configuration list for PBXNativeTarget "ShopMate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A800000300000001 /* Debug */,
+				A800000400000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A600000100000001 /* Project object */;
+}

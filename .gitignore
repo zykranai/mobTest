@@ -1,0 +1,24 @@
+# Build outputs
+target/
+.tools/
+sample-apps/ios/build/
+sample-apps/android/.gradle/
+sample-apps/android/app/build/
+sample-apps/android/build/
+sample-apps/android/local.properties
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+*.class
+
+# Test artifacts
+allure-results/
+appium.log
+*.log
+
+# Local overrides (use config.properties.example as template)
+.env
+config.local.properties
+src/test/resources/config.local.properties

@@ -1,0 +1,31 @@
+# Copy to config.local.properties and edit when using YOUR app.
+# config.local.properties is gitignored.
+
+# Platform: ios | android  (or pass -Dplatform=android)
+platform=ios
+
+# Appium server
+appium.server.url=http://127.0.0.1:4723
+
+# --- iOS (sample ShopMate app) ---
+ios.platform.version=17.0
+ios.device.name=iPhone 17
+ios.app.path=sample-apps/ios/build/Build/Products/Debug-iphonesimulator/ShopMate.app
+ios.bundle.id=com.mobtest.shopmate
+
+# --- Android (sample ShopMate app) ---
+android.platform.version=14
+android.device.name=emulator-5554
+android.app.path=sample-apps/android/app/build/outputs/apk/debug/app-debug.apk
+android.app.package=com.mobtest.shopmate
+android.app.activity=com.mobtest.shopmate.MainActivity
+
+# --- Local LLM (Ollama — free, no API key) ---
+ollama.endpoint=http://localhost:11434/api/chat
+ollama.model=llama3.1
+
+# Set true to skip LLM and use built-in heuristic planner (fast smoke tests)
+agent.heuristic.only=false
+
+# Cloud (optional BrowserStack trial)
+run.cloud=false
