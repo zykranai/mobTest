@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.demo</groupId>
-    <artifactId>agentic-ios-automation</artifactId>
+    <groupId>io.mobtest</groupId>
+    <artifactId>agentic-mobile-framework</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Agentic AI iOS Mobile Automation</name>
-    <description>An autonomous-agent driven mobile automation framework: an LLM plans, acts and verifies on a live iOS app through Appium.</description>
+    <name>MobTest Agentic Mobile Framework</name>
+    <description>Agent-driven iOS and Android test automation: a local LLM plans, acts, and verifies on live apps through Appium with self-healing locators.</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -88,7 +88,7 @@
                 <version>3.2.5</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                        <suiteXmlFile>suites/default.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.22/aspectjweaver-1.9.22.jar"

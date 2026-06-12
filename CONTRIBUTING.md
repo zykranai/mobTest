@@ -1,19 +1,19 @@
 # Contributing
 
-Thank you for trying the Agentic Mobile Test Framework!
+Thank you for contributing to MobTest!
 
-## Quick contribution flow
+## Quick flow
 
 1. Fork [zykranai/mobTest](https://github.com/zykranai/mobTest)
 2. Create a branch: `git checkout -b feature/my-change`
-3. Run tests locally: `./scripts/run-tests.sh ios`
+3. Run tests locally
 4. Open a pull request with a clear description
 
 ## Testing your changes
 
 ```bash
-./scripts/setup-tools.sh
-./scripts/build-sample-app.sh ios
+./scripts/setup-environment.sh
+./scripts/build-demo-app.sh ios
 ollama serve &
 appium &
 mvn test -Dagent.heuristic.only=true   # fast smoke
@@ -23,10 +23,10 @@ mvn test                               # full Ollama agent
 Android:
 
 ```bash
-./scripts/build-sample-app.sh android
-mvn test -Dplatform=android -DsuiteXmlFile=testng-android.xml -Dagent.heuristic.only=true
+./scripts/build-demo-app.sh android
+mvn test -Dplatform=android -DsuiteXmlFile=suites/android.xml -Dagent.heuristic.only=true
 ```
 
 ## Swapping in your own app
 
-See [README.md](README.md#using-your-own-app) — edit `config.local.properties`, not the committed defaults.
+See [docs/USAGE.md](docs/USAGE.md) — edit `config.local.properties`, not the committed defaults.
