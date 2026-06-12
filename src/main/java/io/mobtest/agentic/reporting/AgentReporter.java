@@ -6,10 +6,6 @@ import io.qameta.allure.Allure;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 
-/**
- * Attaches the agent's step trace to Allure so every perceive/decide/act
- * cycle is visible in the report alongside screenshots.
- */
 public final class AgentReporter {
 
     private AgentReporter() {}
@@ -26,5 +22,9 @@ public final class AgentReporter {
         Allure.addAttachment("Agent step trace", "text/plain",
                 new ByteArrayInputStream(trace.toString().getBytes(StandardCharsets.UTF_8)),
                 ".txt");
+
+        if (!result.passed()) {
+            ScreenshotHelper.attach("Agent goal failed");
+        }
     }
 }

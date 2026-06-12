@@ -1,18 +1,13 @@
 package io.mobtest.agentic.tests;
 
-import io.mobtest.agentic.agent.TestAgent;
-import io.mobtest.agentic.reporting.AgentReporter;
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
- * Agentic tests against the ShopMate sample iOS app.
+ * Demo tests for the bundled ShopMate app.
  *
- * Each test is a plain-English goal — no locators or waits in the test code.
- * The agent perceives the live screen, decides actions, and self-heals via
- * ActTool's locator cascade when labels or ids drift.
+ * Each test is just a goal in English — no locators here. For your own app,
+ * copy {@link YourAppAgentTest} and point config.local.properties at your build.
  */
 public class ShopMateDemoTest extends BaseTest {
 
@@ -37,20 +32,5 @@ public class ShopMateDemoTest extends BaseTest {
     public void agentSelfHealsWelcomeTap() {
         runGoal("On the ShopMate welcome screen, tap the button labeled 'Get Started' "
                 + "and verify the Sign In heading appears.");
-    }
-
-    @Step("Run agent goal: {goal}")
-    private void runGoal(String goal) {
-        TestAgent.RunResult result = agent.run(goal);
-
-        System.out.println("\n=== Agent run trace ===");
-        result.steps().forEach(s -> System.out.printf(
-                "  [%d] %s | %s | %s -> %s%n",
-                s.step(), s.thought(), s.tool(), s.args(), s.observation()));
-        System.out.println("Summary: " + result.summary());
-
-        AgentReporter.attachRun(goal, result);
-        Assert.assertTrue(result.passed(),
-                "Agent did not verify the goal. Summary: " + result.summary());
     }
 }

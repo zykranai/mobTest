@@ -10,18 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The autonomous agent that drives the app.
+ * Runs the perceive → decide → act loop until the goal is met or we hit the step limit.
  *
- * Given a plain-English goal (e.g. "Open Settings, go to General, and verify
- * 'About' is shown"), it runs a perceive -> decide -> act -> verify loop:
- *
- *   1. PERCEIVE  read the current screen (read_screen tool)
- *   2. DECIDE    ask the LLM for the single next tool call as JSON
- *   3. ACT       execute that tool against the live app
- *   4. OBSERVE   feed the result back and repeat
- *
- * The loop ends when the LLM emits the "finish" tool or maxSteps is hit.
- * Each step is recorded so the run can be turned into a report.
+ * Each turn the agent reads the live screen, asks the LLM (or heuristic planner)
+ * for one tool call, runs it, and appends the result to history. When the agent
+ * calls {@code finish} with status pass/fail, the run ends and we attach the
+ * trace to Allure.
  */
 public class TestAgent {
 
@@ -90,7 +84,7 @@ public class TestAgent {
 
     private String systemPrompt() {
         var sb = new StringBuilder();
-        sb.append("You are an autonomous mobile QA agent driving an iOS app via tools.\n");
+        sb.append("You are an autonomous mobile QA agent driving a real iOS or Android app via tools.\n");
         sb.append("On each turn, respond with ONE tool call as strict JSON: ");
         sb.append("{\"thought\":\"...\",\"tool\":\"<name>\",\"args\":{...}}.\n");
         sb.append("Available tools:\n");

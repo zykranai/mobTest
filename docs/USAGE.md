@@ -19,12 +19,17 @@ mvn test                                          # iOS (default suite)
 mvn test -Dplatform=android -DsuiteXmlFile=suites/android.xml
 mvn test -Dagent.heuristic.only=true              # fast, no LLM
 
-# All-in-one smoke test
-./scripts/run-demo-tests.sh ios
-AGENT_HEURISTIC_ONLY=true ./scripts/run-demo-tests.sh android
+# Stable workflow (build → test → report → cleanup)
+./scripts/run-tests.sh ios
+./scripts/run-tests.sh android --heuristic
 
 # Reports
 mvn allure:serve
+./scripts/generate-report.sh
+
+# Free simulators/emulators after a run
+./scripts/cleanup-devices.sh ios
+./scripts/cleanup-devices.sh android
 ```
 
 ---
@@ -60,6 +65,9 @@ cp src/test/resources/config.properties.example src/test/resources/config.local.
 | `ollama.endpoint` | `http://localhost:11434/api/chat` | Ollama API |
 | `ollama.model` | `llama3.1` | Model name |
 | `agent.heuristic.only` | `false` | Skip LLM, use built-in planner |
+| `driver.cleanup.after.test` | `true` | Terminate app + quit driver after each test |
+| `device.shutdown.after.suite` | `true` | Shut down simulator/emulator when suite ends |
+| `device.auto.boot` | `false` | Boot iOS simulator from Java before tests |
 
 ### Environment variable mapping
 
@@ -147,7 +155,14 @@ Ollama still runs locally for planning; BrowserStack provides the device farm.
 
 ---
 
+## Swap in your own app
+
+See **[CUSTOMIZE.md](CUSTOMIZE.md)** — copy config, use `YourAppAgentTest` as a template, run `mvn test`, open Allure.
+
+---
+
 ## See also
 
+- [CUSTOMIZE.md](CUSTOMIZE.md) — use your own app in three steps
 - [SETUP.md](SETUP.md) — install commands and verified versions
 - [ARCHITECTURE.md](ARCHITECTURE.md) — agent loop and components

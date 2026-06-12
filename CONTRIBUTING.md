@@ -13,18 +13,21 @@ Thank you for contributing to MobTest!
 
 ```bash
 ./scripts/setup-environment.sh
-./scripts/build-demo-app.sh ios
-ollama serve &
-appium &
-mvn test -Dagent.heuristic.only=true   # fast smoke
-mvn test                               # full Ollama agent
+./scripts/run-tests.sh ios --heuristic    # full stable workflow, fast mode
+./scripts/run-tests.sh ios                # with Ollama
 ```
 
 Android:
 
 ```bash
-./scripts/build-demo-app.sh android
-mvn test -Dplatform=android -DsuiteXmlFile=suites/android.xml -Dagent.heuristic.only=true
+./scripts/run-tests.sh android --heuristic
+```
+
+Manual:
+
+```bash
+mvn test -DsuiteXmlFile=suites/ios.xml -Dagent.heuristic.only=true
+mvn test -DsuiteXmlFile=suites/android.xml
 ```
 
 ## Swapping in your own app

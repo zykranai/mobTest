@@ -49,11 +49,12 @@ mvn test                                              # iOS
 mvn test -Dplatform=android -DsuiteXmlFile=suites/android.xml
 ```
 
-**One-liner smoke test:**
+**One-command workflow (build → test → report → cleanup):**
 
 ```bash
-./scripts/run-demo-tests.sh ios
-./scripts/run-demo-tests.sh android
+./scripts/run-tests.sh ios
+./scripts/run-tests.sh android
+./scripts/run-tests.sh ios --no-build --heuristic   # fast smoke
 ```
 
 Fast validation without LLM:
@@ -62,14 +63,20 @@ Fast validation without LLM:
 mvn test -Dagent.heuristic.only=true
 ```
 
+After tests finish, the framework **terminates the app, quits the Appium driver, and shuts down simulators/emulators** so nothing is left running. Reports land in `target/allure-results` — open with `mvn allure:serve` or `./scripts/generate-report.sh`.
+
+**Your app:** copy `config.properties.example` → `config.local.properties`, edit paths, start from `YourAppAgentTest.java`. Details in [docs/CUSTOMIZE.md](docs/CUSTOMIZE.md).
+
 ---
 
 ## Documentation
 
 | Guide | Contents |
 |-------|----------|
+| [**docs/WORKFLOW.md**](docs/WORKFLOW.md) | **Stable run workflow** — one command from clone to report |
 | [**docs/SETUP.md**](docs/SETUP.md) | Full install commands, verified versions, Xcode/Android/Ollama setup |
-| [**docs/USAGE.md**](docs/USAGE.md) | Configuration, writing tests, using your own app |
+| [**docs/CUSTOMIZE.md**](docs/CUSTOMIZE.md) | **Swap your app** — config, test template, reports |
+| [**docs/USAGE.md**](docs/USAGE.md) | Configuration, writing tests, teardown options |
 | [**docs/ARCHITECTURE.md**](docs/ARCHITECTURE.md) | Agent loop, self-healing, component map |
 
 ---
@@ -117,7 +124,9 @@ mobTest/
 ├── scripts/
 │   ├── setup-environment.sh
 │   ├── build-demo-app.sh
-│   └── run-demo-tests.sh
+│   ├── run-tests.sh              # main workflow entry point
+│   ├── generate-report.sh
+│   └── cleanup-devices.sh
 ├── src/main/java/io/mobtest/agentic/
 ├── src/test/java/io/mobtest/agentic/tests/
 ├── suites/                    # TestNG suites (ios, android, default)

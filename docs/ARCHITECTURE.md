@@ -42,9 +42,13 @@ Plain-English goal (TestNG test)
 | | `ActTool` | Executes tap, type, scroll with self-healing |
 | | `AssertTool` | Verifies text/element presence |
 | | `LocatorHelper` | Locator cascade (accessibility id → label → xpath) |
+| `io.mobtest.agentic.config` | `ConfigLoader` | Loads `config.properties` + local overrides |
 | `io.mobtest.agentic.driver` | `DriverFactory` | Creates iOS or Android Appium session |
-| | `ConfigLoader` | Loads `config.properties` + env overrides |
-| `io.mobtest.agentic.reporting` | `AgentReporter` | Allure step traces per agent action |
+| | `SessionManager` | Terminate app + quit driver after each test |
+| | `DeviceManager` | Boot/shutdown simulators and emulators |
+| `io.mobtest.agentic.support` | `PreflightChecker` | Validates app path, Appium, Ollama before session |
+| | `SuiteLifecycleListener` | Shuts down managed devices after suite |
+| `io.mobtest.agentic.reporting` | `AgentReporter` | Allure step traces + failure screenshots |
 
 ---
 

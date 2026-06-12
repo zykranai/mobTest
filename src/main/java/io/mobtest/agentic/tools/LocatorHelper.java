@@ -17,9 +17,9 @@ final class LocatorHelper {
     private LocatorHelper() {}
 
     static Located locate(AppiumDriver driver, Map<String, Object> args) {
-        String accId = str(args, "accessibilityId");
-        String label = str(args, "label");
-        String target = str(args, "target");
+        String accId = ArgsHelper.str(args, "accessibilityId");
+        String label = ArgsHelper.str(args, "label");
+        String target = ArgsHelper.str(args, "target");
         List<Supplier<Located>> strategies = new ArrayList<>();
 
         if (DriverFactory.platform() == Platform.ANDROID) {
@@ -81,11 +81,6 @@ final class LocatorHelper {
     private static Located find(AppiumDriver driver, By by, String strategy) {
         WebElement e = first(driver, by);
         return e != null ? new Located(e, strategy) : null;
-    }
-
-    private static String str(Map<String, Object> a, String k) {
-        Object v = a.get(k);
-        return v == null ? "" : v.toString();
     }
 
     record Located(WebElement element, String strategy) {}

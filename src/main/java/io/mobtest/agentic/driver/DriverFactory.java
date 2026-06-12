@@ -5,13 +5,17 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
+import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Builds and holds the Appium driver for iOS (XCUITest) or Android (UiAutomator2).
+ * Creates the Appium driver for the current test thread.
+ *
+ * Each test method gets its own session. Call {@link SessionManager#release}
+ * when you're done — don't call quit() directly unless you know why.
  */
 public class DriverFactory {
 
@@ -55,7 +59,7 @@ public class DriverFactory {
             }
             hubUrl = cfg.serverUrl();
         }
-        return new IOSDriver(new URL(hubUrl), options);
+        return new IOSDriver(URI.create(hubUrl).toURL(), options);
     }
 
     private static AndroidDriver createAndroid(AppiumConfig cfg) throws Exception {
@@ -80,7 +84,7 @@ public class DriverFactory {
                    .setAppActivity(cfg.appActivity());
             hubUrl = cfg.serverUrl();
         }
-        return new AndroidDriver(new URL(hubUrl), options);
+        return new AndroidDriver(URI.create(hubUrl).toURL(), options);
     }
 
     private static Map<String, Object> browserStackOptions(String sessionName) {
@@ -109,12 +113,22 @@ public class DriverFactory {
         return p == null ? Platform.IOS : p;
     }
 
+    /** @deprecated use {@link SessionManager#release} so the app is terminated too */
+    @Deprecated
     public static void quit() {
         AppiumDriver driver = DRIVER.get();
         if (driver != null) {
-            driver.quit();
-            DRIVER.remove();
-            PLATFORM.remove();
+            try {
+                driver.quit();
+            } catch (Exception ignored) {
+                // teardown should not throw
+            }
         }
+        clearThreadLocals();
+    }
+
+    static void clearThreadLocals() {
+        DRIVER.remove();
+        PLATFORM.remove();
     }
 }

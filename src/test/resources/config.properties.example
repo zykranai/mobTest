@@ -29,3 +29,13 @@ agent.heuristic.only=false
 
 # Cloud (optional BrowserStack trial)
 run.cloud=false
+
+# --- Teardown (local runs) ---
+# Quit Appium session and terminate the app after each @Test method
+driver.cleanup.after.test=true
+# Shut down simulators/emulators when the suite finishes (frees RAM)
+device.shutdown.after.suite=true
+# Boot iOS simulator from Java before each test (run-tests.sh boots for you)
+device.auto.boot=false
+# Set automatically by ./scripts/run-tests.sh when it boots a device
+device.managed.by.framework=false

@@ -245,11 +245,11 @@ mvn test -Dplatform=android -DsuiteXmlFile=suites/android.xml
 ### One-command smoke test
 
 ```bash
-./scripts/run-demo-tests.sh ios
-./scripts/run-demo-tests.sh android
+./scripts/run-tests.sh ios
+./scripts/run-tests.sh android
 
 # Fast mode (no LLM):
-AGENT_HEURISTIC_ONLY=true ./scripts/run-demo-tests.sh ios
+./scripts/run-tests.sh ios --heuristic
 ```
 
 ### View Allure report
