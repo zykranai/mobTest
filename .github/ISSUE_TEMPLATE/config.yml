@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/zykranai/mobTest/blob/master/docs/README.md
+    about: Read the docs before opening an issue
+  - name: Getting Started
+    url: https://github.com/zykranai/mobTest/blob/master/GETTING_STARTED.md
+    about: 5-minute first run guide

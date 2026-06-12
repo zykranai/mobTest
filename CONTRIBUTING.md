@@ -2,6 +2,8 @@
 
 Thank you for contributing to MobTest!
 
+**Documentation:** [docs/README.md](docs/README.md) · [GETTING_STARTED.md](GETTING_STARTED.md) · [docs/FAQ.md](docs/FAQ.md)
+
 ## Quick flow
 
 1. Fork [zykranai/mobTest](https://github.com/zykranai/mobTest)

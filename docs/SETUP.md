@@ -2,6 +2,8 @@
 
 Complete install guide for the **MobTest Agentic Mobile Framework**. All versions below were verified on **macOS (Apple Silicon)** with the bundled ShopMate demo apps.
 
+**Quick path:** [GETTING_STARTED.md](../GETTING_STARTED.md) · **All docs:** [README.md](README.md) · **Problems:** [FAQ.md](FAQ.md)
+
 ---
 
 ## Verified versions

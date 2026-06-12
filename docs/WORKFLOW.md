@@ -2,6 +2,8 @@
 
 End-to-end flow from clone to Allure report, with cleanup at every stage.
 
+**New here?** [GETTING_STARTED.md](../GETTING_STARTED.md) · **All docs:** [README.md](README.md) · **Commands:** [COMMANDS.md](COMMANDS.md)
+
 ---
 
 ## One-command run (recommended)
