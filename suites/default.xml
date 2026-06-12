@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="ShopMate Agentic Tests" verbose="1">
+    <listeners>
+        <listener class-name="io.mobtest.agentic.support.PlatformSuiteListener"/>
+        <listener class-name="io.mobtest.agentic.support.SuiteLifecycleListener"/>
+    </listeners>
+    <test name="Default (iOS)">
+        <classes>
+            <class name="io.mobtest.agentic.tests.ShopMateDemoTest"/>
+        </classes>
+    </test>
+</suite>

@@ -1,12 +1,54 @@
-# Agentic AI Mobile Test Framework
+# MobTest — Agentic Mobile Test Framework
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Java 17](https://img.shields.io/badge/Java-17+-orange.svg)](docs/SETUP.md)
+[![Appium 2](https://img.shields.io/badge/Appium-2.11.5-green.svg)](docs/SETUP.md)
+[![Ollama](https://img.shields.io/badge/Ollama-llama3.1-purple.svg)](docs/SETUP.md)
 
-**Clone → install → run agentic tests on bundled sample apps → swap in your own iOS or Android app.**
+**Clone → install → run agentic tests on bundled demo apps → swap in your own iOS or Android app.**
 
-An open-source framework where a **local Ollama LLM** drives **live mobile apps** through **Appium**: perceive the screen, decide the next action, act with **self-healing locators**, and verify goals in plain English.
+An open-source framework where a **local Ollama LLM** (`llama3.1`) drives **live mobile apps** through **Appium**: perceive the screen, decide the next action, act with **self-healing locators**, and verify goals in plain English. **No API keys. No cloud LLM required.**
 
-Repository: [github.com/zykranai/mobTest](https://github.com/zykranai/mobTest)
+🔗 **https://github.com/zykranai/mobTest**
+
+---
+
+## New here?
+
+| Step | Link |
+|------|------|
+| **1. First run in 5 minutes** | [GETTING_STARTED.md](GETTING_STARTED.md) |
+| **2. Full install guide** | [docs/SETUP.md](docs/SETUP.md) |
+| **3. Use your own app** | [docs/CUSTOMIZE.md](docs/CUSTOMIZE.md) |
+| **4. All documentation** | [docs/README.md](docs/README.md) |
+| **5. Problems?** | [docs/FAQ.md](docs/FAQ.md) |
+
+---
+
+## Quick start
+
+```bash
+git clone https://github.com/zykranai/mobTest.git
+cd mobTest
+chmod +x scripts/*.sh
+./scripts/setup-environment.sh
+./scripts/run-tests.sh ios
+```
+
+Android:
+
+```bash
+export ANDROID_AVD="Your_Avd_Name"    # optional — auto-starts emulator
+./scripts/run-tests.sh android
+```
+
+Fast smoke test (no LLM):
+
+```bash
+./scripts/run-tests.sh ios --heuristic
+```
+
+Open report: `mvn allure:serve` or `./scripts/generate-report.sh`
 
 ---
 
@@ -14,181 +56,34 @@ Repository: [github.com/zykranai/mobTest](https://github.com/zykranai/mobTest)
 
 | Piece | Location | Description |
 |-------|----------|-------------|
-| **Agent framework** | `src/main/java/com/demo/` | Agent loop, Ollama client, tools, driver factory |
-| **iOS sample app** | `sample-apps/ios/` | ShopMate — SwiftUI e-commerce demo |
-| **Android sample app** | `sample-apps/android/` | ShopMate — Jetpack Compose demo (same flows) |
-| **Agentic tests** | `src/test/java/com/demo/tests/` | Goal-based TestNG tests (no locators in test code) |
+| **Framework** | `src/main/java/io/mobtest/agentic/` | Agent loop, Ollama client, tools, driver factory |
+| **iOS demo app** | `apps/shopmate-ios/` | ShopMate — SwiftUI e-commerce demo |
+| **Android demo app** | `apps/shopmate-android/` | ShopMate — Jetpack Compose demo |
+| **Prebuilt binaries** | `apps/*/dist/` | Ready-to-run `.app` and `.apk` for first test |
+| **Demo tests** | `src/test/java/io/mobtest/agentic/tests/` | Goal-based TestNG tests (no locators) |
+| **Your app template** | `YourAppAgentTest.java` | Copy, edit, enable — see [CUSTOMIZE.md](docs/CUSTOMIZE.md) |
 
-Both sample apps share the same user journey:
+**Demo flow:** Welcome → Login → Home → Products → Cart → Checkout → Success
 
-**Welcome → Login → Home → Products → Cart → Checkout → Success**
-
-Demo credentials: `demo@shopmate.com` / `secret123`
-
----
-
-## Architecture
-
-```
-Plain-English goal
-       ↓
-TestAgent  (perceive → Ollama decide → act → observe)
-       ↓
-PerceiveTool | ActTool (self-healing) | AssertTool
-       ↓
-Appium  →  iOS (XCUITest) or Android (UiAutomator2)
-       ↓
-Allure step trace + screenshots
-```
-
-**Self-healing** tries multiple locator strategies (accessibility id → label/text → content-desc → scroll retry) and logs which one worked.
-
-**Hybrid brain**: [Ollama](https://ollama.com) (`llama3.1`) by default; built-in `HeuristicPlanner` fallback when Ollama is offline (`-Dagent.heuristic.only=true`).
+**Demo credentials:** `demo@shopmate.com` / `secret123`
 
 ---
 
-## Prerequisites
+## How it works
 
-| Tool | iOS | Android |
-|------|-----|---------|
-| **Java 17+** | ✓ | ✓ |
-| **Maven 3.9+** | ✓ | ✓ |
-| **Node.js 20+** | ✓ (Appium) | ✓ (Appium) |
-| **Appium 2** | + xcuitest driver | + uiautomator2 driver |
-| **Ollama** | ✓ (local LLM) | ✓ |
-| **Xcode + Simulator** | ✓ | — |
-| **Android SDK + Emulator** | — | ✓ |
+```
+Plain-English goal  →  TestAgent (perceive → Ollama decide → act)
+                   →  Appium (iOS XCUITest / Android UiAutomator2)
+                   →  Allure report (step trace + screenshots)
+```
+
+After each test: app terminated, driver quit. After suite: simulators/emulators shut down (when started by `run-tests.sh`).
+
+Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · [docs/WORKFLOW.md](docs/WORKFLOW.md)
 
 ---
 
-## Quick start (5 steps)
-
-```bash
-git clone https://github.com/zykranai/mobTest.git
-cd mobTest
-
-# 1. Install Appium, Ollama, pull model
-./scripts/setup-tools.sh
-
-# 2. Build the sample app
-./scripts/build-sample-app.sh ios        # or: android
-
-# 3. Start services (separate terminals)
-ollama serve
-appium
-
-# 4. Boot a device
-# iOS:
-xcrun simctl boot "iPhone 17" && open -a Simulator
-# Android:
-emulator -avd Pixel_7_API_34 &
-
-# 5. Run agentic tests
-mvn test                                          # iOS (default)
-mvn test -Dplatform=android -DsuiteXmlFile=testng-android.xml
-```
-
-**One-liner smoke test** (starts Ollama + Appium if needed):
-
-```bash
-./scripts/run-tests.sh ios
-./scripts/run-tests.sh android
-```
-
-Fast validation without LLM:
-
-```bash
-mvn test -Dagent.heuristic.only=true
-```
-
-Allure report: `mvn allure:serve`
-
----
-
-## Using your own app
-
-1. Copy the example config:
-   ```bash
-   cp src/test/resources/config.properties.example src/test/resources/config.local.properties
-   ```
-
-2. Edit `config.local.properties`:
-
-   **iOS**
-   ```properties
-   platform=ios
-   ios.app.path=/path/to/YourApp.app
-   ios.bundle.id=com.yourcompany.yourapp
-   ios.device.name=iPhone 17
-   ios.platform.version=17.0
-   ```
-
-   **Android**
-   ```properties
-   platform=android
-   android.app.path=/path/to/your-app-debug.apk
-   android.app.package=com.yourcompany.yourapp
-   android.app.activity=com.yourcompany.yourapp.MainActivity
-   android.device.name=emulator-5554
-   ```
-
-3. Write a goal-based test (no locators):
-   ```java
-   @Test
-   public void agentLogsIn() {
-       runGoal("Sign in with user@test.com and password secret, then verify the dashboard is visible.");
-   }
-   ```
-
-4. Run: `mvn test -Dplatform=ios` or `-Dplatform=android`
-
-> **Ollama needs no API key** — it runs fully local. To use a different model, change `ollama.model` in config (e.g. `mistral`, `llama3.2`).
-
----
-
-## Configuration reference
-
-| Key | Description |
-|-----|-------------|
-| `platform` | `ios` or `android` |
-| `ollama.endpoint` | Default `http://localhost:11434/api/chat` |
-| `ollama.model` | Default `llama3.1` |
-| `agent.heuristic.only` | `true` = skip LLM, use built-in planner |
-| `ios.app.path` / `android.app.path` | Path to `.app` or `.apk` |
-| `ios.bundle.id` | iOS bundle identifier |
-| `android.app.package` / `android.app.activity` | Android launch intent |
-
-Environment variables override properties (e.g. `PLATFORM=android`, `OLLAMA_MODEL=llama3.1`).
-
----
-
-## Project structure
-
-```
-mobTest/
-├── sample-apps/
-│   ├── ios/ShopMate.xcodeproj      # SwiftUI sample
-│   └── android/                    # Compose sample (Gradle)
-├── src/main/java/com/demo/
-│   ├── agent/                      # TestAgent, LlmClient, HeuristicPlanner
-│   ├── tools/                      # Perceive, Act, Assert, LocatorHelper
-│   ├── driver/                     # DriverFactory (iOS + Android)
-│   └── reporting/                  # Allure step trace
-├── src/test/
-│   ├── java/.../ShopMateAgentTest.java
-│   └── resources/config.properties.example
-├── scripts/
-│   ├── setup-tools.sh
-│   ├── build-sample-app.sh ios|android
-│   └── run-tests.sh ios|android
-├── testng-ios.xml
-├── testng-android.xml
-└── pom.xml
-```
-
----
-
-## Sample agentic test
+## Sample test
 
 ```java
 @Test
@@ -199,24 +94,75 @@ public void agentCompletesCheckoutFlow() {
 }
 ```
 
-The agent perceives the live screen each step and self-heals when locators drift.
+No locators in test code — the agent reads the live screen each step.
 
 ---
 
-## Cloud testing (optional)
+## Documentation
 
-Set BrowserStack credentials and run:
+| Guide | Contents |
+|-------|----------|
+| [GETTING_STARTED.md](GETTING_STARTED.md) | **Start here** — first run, what you need |
+| [docs/README.md](docs/README.md) | Full documentation index |
+| [docs/SETUP.md](docs/SETUP.md) | Install commands + verified versions |
+| [docs/WORKFLOW.md](docs/WORKFLOW.md) | Stable workflow (build → test → report → cleanup) |
+| [docs/COMMANDS.md](docs/COMMANDS.md) | All scripts and Maven commands |
+| [docs/CUSTOMIZE.md](docs/CUSTOMIZE.md) | Test your own app |
+| [docs/USAGE.md](docs/USAGE.md) | Configuration reference |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Agent loop and components |
+| [docs/FAQ.md](docs/FAQ.md) | FAQ and troubleshooting |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute |
 
-```bash
-export BROWSERSTACK_USERNAME=...
-export BROWSERSTACK_ACCESS_KEY=...
-mvn test -Drun.cloud=true
+---
+
+## Prerequisites
+
+| Tool | iOS | Android |
+|------|-----|---------|
+| Java 17+ | ✓ | ✓ |
+| Maven 3.9+ | ✓ | ✓ |
+| Node.js 20+ | ✓ | ✓ |
+| Appium 2.11.5 + drivers | xcuitest 7.28.3 | uiautomator2 3.9.5 |
+| Ollama + llama3.1 | ✓ (or `--heuristic`) | ✓ |
+| Xcode + Simulator | ✓ | — |
+| Android SDK + Emulator | — | ✓ |
+
+Install everything: `./scripts/setup-environment.sh` — details in [docs/SETUP.md](docs/SETUP.md).
+
+---
+
+## Project structure
+
+```
+mobTest/
+├── GETTING_STARTED.md         # new users start here
+├── README.md
+├── apps/                      # ShopMate demo apps + prebuilt dist/
+├── docs/                      # full documentation
+├── scripts/
+│   ├── setup-environment.sh # install Appium, Ollama, drivers
+│   ├── run-tests.sh           # main workflow entry point
+│   ├── build-demo-app.sh
+│   ├── generate-report.sh
+│   └── cleanup-devices.sh
+├── src/main/java/io/mobtest/agentic/   # framework
+├── src/test/java/io/mobtest/agentic/   # tests + YourAppAgentTest template
+├── suites/                    # TestNG: default.xml, ios.xml, android.xml
+└── pom.xml
 ```
 
-Ollama still runs locally; the cloud provides the device.
+---
+
+## Share this project
+
+You can share the repo publicly under the MIT license:
+
+> **MobTest** — Agentic iOS/Android test automation with Ollama + Appium (no API keys)  
+> https://github.com/zykranai/mobTest  
+> Quick start: `git clone …` → `./scripts/setup-environment.sh` → `./scripts/run-tests.sh ios`
 
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE). Copyright (c) 2026 zykranai.

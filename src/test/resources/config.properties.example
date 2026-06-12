@@ -8,15 +8,15 @@ platform=ios
 appium.server.url=http://127.0.0.1:4723
 
 # --- iOS (sample ShopMate app) ---
-ios.platform.version=17.0
+ios.platform.version=26.5
 ios.device.name=iPhone 17
-ios.app.path=sample-apps/ios/build/Build/Products/Debug-iphonesimulator/ShopMate.app
+ios.app.path=apps/shopmate-ios/dist/ShopMate.app
 ios.bundle.id=com.mobtest.shopmate
 
 # --- Android (sample ShopMate app) ---
-android.platform.version=14
+android.platform.version=16
 android.device.name=emulator-5554
-android.app.path=sample-apps/android/app/build/outputs/apk/debug/app-debug.apk
+android.app.path=apps/shopmate-android/dist/shopmate-debug.apk
 android.app.package=com.mobtest.shopmate
 android.app.activity=com.mobtest.shopmate.MainActivity
 
@@ -29,3 +29,13 @@ agent.heuristic.only=false
 
 # Cloud (optional BrowserStack trial)
 run.cloud=false
+
+# --- Teardown (local runs) ---
+# Quit Appium session and terminate the app after each @Test method
+driver.cleanup.after.test=true
+# Shut down simulators/emulators when the suite finishes (frees RAM)
+device.shutdown.after.suite=true
+# Boot iOS simulator from Java before each test (run-tests.sh boots for you)
+device.auto.boot=false
+# Set automatically by ./scripts/run-tests.sh when it boots a device
+device.managed.by.framework=false

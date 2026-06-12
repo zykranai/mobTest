@@ -1,11 +1,14 @@
 # Build outputs
 target/
 .tools/
-sample-apps/ios/build/
-sample-apps/android/.gradle/
-sample-apps/android/app/build/
-sample-apps/android/build/
-sample-apps/android/local.properties
+.allure/
+
+# Demo app build artifacts (prebuilt dist/ is committed for first-run tests)
+apps/shopmate-ios/build/
+apps/shopmate-android/.gradle/
+apps/shopmate-android/app/build/
+apps/shopmate-android/build/
+apps/shopmate-android/local.properties
 
 # IDE
 .idea/
@@ -15,6 +18,7 @@ sample-apps/android/local.properties
 
 # Test artifacts
 allure-results/
+reports/
 appium.log
 *.log
 
